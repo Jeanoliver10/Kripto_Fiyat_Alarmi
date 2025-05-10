@@ -1,6 +1,7 @@
 import requests
 import time
 import winsound #sadece windows da çalışır
+import datetime
 
 coin_adi = input("Alarm kurmak istediğiniz coinin ismini giriniz: ").lower().strip()
 hedef_fiyat = float(input("Alarm kurulacak olan fiyat (USD): "))
@@ -23,6 +24,12 @@ def fiyat_kontrol():
     except:
         print("Veri alınırken hata oluştu.")
         return None
+
+def log_yaz(fiyat):
+    zaman = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    with open("coin_fiyat_log.txt", "a") as file:
+        file.write(f"{zaman} - {coin_adi.capitalize()} fiyatı: {fiyat} USD\n")
+
 
 ilk_fiyat = fiyat_kontrol()
 if ilk_fiyat is not None:
