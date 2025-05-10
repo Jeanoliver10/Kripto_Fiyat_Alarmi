@@ -1,5 +1,6 @@
 import requests
 import time
+import winsound #sadece windows da çalışır
 
 coin_adi = input("Alarm kurmak istediğiniz coinin ismini giriniz: ").lower().strip()
 hedef_fiyat = float(input("Alarm kurulacak olan fiyat (USD): "))
@@ -20,11 +21,12 @@ def fiyat_kontrol():
 
 ilk_fiyat = fiyat_kontrol()
 if ilk_fiyat is not None:
-    print(f"{coin_adi.capitalize()}'in şu anki fiyatı: {ilk_fiyat} USD")
+    print(f"{coin_adi.capitalize()}'nin şu anki fiyatı: {ilk_fiyat} USD")
 
 while True:
     mevcut_fiyat = fiyat_kontrol()
     if mevcut_fiyat is not None and mevcut_fiyat >= hedef_fiyat:
-        print(f"{coin_adi} hedef fiyata ulaştı! ({mevcut_fiyat} USD)")
+        winsound.Beep(1000, 1000)
+        print(f"{coin_adi} {hedef_fiyat} fiyatının üzerine çıktı ve şu anki fiyatı: ({mevcut_fiyat} USD)")
         break
     time.sleep(60)
